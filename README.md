@@ -19,23 +19,14 @@ Problem
 
 A robot collects products from shelves and delivers them to the packing station while avoiding obstacles and minimizing travel time.
 
-MDP Component	Representation
-
-
 Describe the real-world application that you selected.
 
+The selected real-world application is an e-commerce warehouse robot. The robot collects products from shelves and delivers them to the packing station while avoiding obstacles and minimizing travel time. At each step, it observes its current location, chooses an action, and receives rewards based on its performance. This problem can be modeled as a Markov Decision Process (MDP) because it involves sequential decision-making to maximize long-term rewards.
 
 ---
 
 ## MDP Components
 
-Agent	Warehouse Robot
-Environment	Warehouse with shelves, obstacles, and packing station
-States (S)	Robot's current location (e.g., Shelf A, Shelf B, Packing Station)
-Actions (A)	Move Up, Down, Left, Right, Pick Item, Drop Item
-Transition Probability (P)	If the robot moves right, it reaches the intended cell with probability 0.9 and slips to another cell with probability 0.1
-Reward (R)	+100 for successful delivery, -20 for collision, -1 for each movement (to encourage shorter paths)
-Discount Factor (γ)	0.9 (future rewards are important but slightly discounted)
 
 A Markov Decision Process is represented as:
 
@@ -46,39 +37,39 @@ $$
 Where:
 
 | Symbol | Meaning |
-|---|---|
-| $S$ | Set of states |
-| $A$ | Set of actions |
-| $P$ | Transition probability function |
-| $R$ | Reward function |
-| $\gamma$ | Discount factor |
+|---|---| 
+| $S$ | The set of possible states of the environment|
+| $A$ | The set of actions the agent can perform. |
+| $P$ | The probability of moving from one state to another after taking an action. |
+| $R$ | The immediate reward received after taking an action. |
+| $\gamma$ | A value between 0 and 1 that determines the importance of future rewards. |
 
 ---
 
 ## State Space
-
-Write your answer here.
-
-The state space should list all possible situations in which the agent can exist.
-
-Example format:
-
-```text
+```
 S = {
-    State 1,
-    State 2,
-    State 3,
-    ...
+    Start,
+    At Shelf A,
+    At Shelf B,
+    Carrying Item,
+    At Packing Station,
+    Delivery Completed,
+    Collision
 }
 ```
 
 
+The state space should list all possible situations in which the agent can exist.
 
 ---
 
 ## Sample State
 
-Write your answer here.
+```
+Sample State:
+At Shelf A
+```
 
 A sample state is one specific example from the state space.
 
@@ -88,66 +79,78 @@ A sample state is one specific example from the state space.
 
 ## Action Space
 
-Write your answer here.
-
-The action space should list all possible actions available to the agent.
-
-Example format:
-
-```text
 A = {
-    Action 1,
-    Action 2,
-    Action 3,
-    ...
+    Move Up,
+    Move Down,
+    Move Left,
+    Move Right,
+    Pick Item,
+    Drop Item
 }
-```
-
+The action space should list all possible actions available to the agent.
 
 ---
 
 ## Sample Action
 
-Write your answer here.
+```
+Sample Action:
+Pick Item
+```
+Description:
+The robot picks up the required product from Shelf A before moving toward the packing station.
 
 A sample action is one action selected from the action space.
-
-
 
 ---
 
 ## Transition Probability
-
-Write your answer here.
-
-The transition probability explains how the environment moves from one state to another after an action is taken.
-
-General form:
-
+The transition probability defines the likelihood of moving from one state to another after taking an action.
 $$
-P(s' \mid s,a)
+P(s′∣s,a)
 $$
+where:
 
-This means:
+s = Current state
+a = Action taken
+s′= Next state
 
-> Probability of reaching next state $s'$ after taking action $a$ in current state $s$.
-
+Example:
+```
+P(At Shelf B | At Shelf A, Move Right) = 0.9
+P(Collision | At Shelf A, Move Right) = 0.1
+```
+This means the robot reaches Shelf B with a probability of 0.9 after moving right from Shelf A, while there is a 0.1 probability of colliding with an obstacle or ending up in an unintended state.
 
 ---
 
 ## Reward Function
 
-Write your answer here.
+Reward Function
 
-The reward function defines the feedback received by the agent after taking an action.
-
-General form:
-
+The reward function provides feedback to the robot after performing an action and moving to the next state.
 $$
-R(s,a,s')
+R(s,a,s′)
 $$
+where:
 
+s = Current state
+a = Action taken
+s′= Next state
 
+Example:
+```
+R(At Shelf A, Pick Item, Carrying Item) = +10
+R(Carrying Item, Drop Item, Delivery Completed) = +100
+R(At Shelf A, Move Right, Collision) = -20
+R(At Shelf A, Move Right, At Shelf B) = -1
+```
+This means:
+
++10 for successfully picking up an item.
++100 for successfully delivering the item.
+-20 for colliding with an obstacle.
+-1 for each movement to encourage the robot to choose the shortest path.
 
 ---
 
@@ -157,12 +160,32 @@ Write your answer here.
 
 Draw the MDP graph.
 
-The graph should include:
+                 Move Right
+Start ------------------------> At Shelf A
+                                  |
+                                  | Pick Item (+10)
+                                  v
+                           Carrying Item
+                                  |
+                                  | Move Right (-1)
+                                  | P = 0.9
+                                  v
+                        At Packing Station
+                                  |
+                                  | Drop Item (+100)
+                                  v
+                       Delivery Completed
 
-1. States as nodes.
-2. Actions as arrows.
-3. Rewards on transitions.
-4. Transition probabilities if applicable.
+        Move Right
+At Shelf A ---------------------> Collision
+             P = 0.1              Reward = -20
+
+Explanation:
+
+States (nodes): Start, At Shelf A, Carrying Item, At Packing Station, Delivery Completed, Collision.
+Actions (arrows): Move Right, Pick Item, Drop Item.
+Rewards: +10 for picking the item, +100 for successful delivery, -1 for movement, -20 for collision.
+Transition Probabilities: 0.9 for successful movement and 0.1 for collision.
 
 
 ---
