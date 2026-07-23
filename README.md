@@ -78,7 +78,7 @@ A sample state is one specific example from the state space.
 ---
 
 ## Action Space
-
+```
 A = {
     Move Up,
     Move Down,
@@ -87,6 +87,7 @@ A = {
     Pick Item,
     Drop Item
 }
+```
 The action space should list all possible actions available to the agent.
 
 ---
