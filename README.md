@@ -160,7 +160,7 @@ This means:
 Write your answer here.
 
 Draw the MDP graph.
-
+```
                  Move Right
 Start ------------------------> At Shelf A
                                   |
@@ -180,7 +180,7 @@ Start ------------------------> At Shelf A
         Move Right
 At Shelf A ---------------------> Collision
              P = 0.1              Reward = -20
-
+```
 Explanation:
 
 States (nodes): Start, At Shelf A, Carrying Item, At Packing Station, Delivery Completed, Collision.
