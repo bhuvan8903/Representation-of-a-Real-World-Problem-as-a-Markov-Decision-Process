@@ -3,11 +3,11 @@
 
 ## Aim
 
-Write your aim here.
+To model a real-world problem using a Markov Decision Process (MDP) for optimal decision-making in reinforcement learning.
 
 Example:
 
-> To identify a real-world sequential decision-making problem and represent it formally as a Markov Decision Process by defining its states, actions, rewards, transitions, and Python representation.
+> o model an e-commerce warehouse robot navigation problem as a Markov Decision Process (MDP) so that the robot can learn the optimal path to collect and deliver products while minimizing travel time and avoiding collisions.
 
 ---
 
