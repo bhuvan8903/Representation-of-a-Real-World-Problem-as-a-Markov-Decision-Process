@@ -7,7 +7,7 @@ To model a real-world problem using a Markov Decision Process (MDP) for optimal 
 
 Example:
 
-> o model an e-commerce warehouse robot navigation problem as a Markov Decision Process (MDP) so that the robot can learn the optimal path to collect and deliver products while minimizing travel time and avoiding collisions.
+> To model an e-commerce warehouse robot navigation problem as a Markov Decision Process (MDP) so that the robot can learn the optimal path to collect and deliver products while minimizing travel time and avoiding collisions.
 
 ---
 
@@ -15,7 +15,12 @@ Example:
 
 ### Problem Description
 
-Write your answer here.
+Problem
+
+A robot collects products from shelves and delivers them to the packing station while avoiding obstacles and minimizing travel time.
+
+MDP Component	Representation
+
 
 Describe the real-world application that you selected.
 
@@ -23,6 +28,14 @@ Describe the real-world application that you selected.
 ---
 
 ## MDP Components
+
+Agent	Warehouse Robot
+Environment	Warehouse with shelves, obstacles, and packing station
+States (S)	Robot's current location (e.g., Shelf A, Shelf B, Packing Station)
+Actions (A)	Move Up, Down, Left, Right, Pick Item, Drop Item
+Transition Probability (P)	If the robot moves right, it reaches the intended cell with probability 0.9 and slips to another cell with probability 0.1
+Reward (R)	+100 for successful delivery, -20 for collision, -1 for each movement (to encourage shorter paths)
+Discount Factor (γ)	0.9 (future rewards are important but slightly discounted)
 
 A Markov Decision Process is represented as:
 
